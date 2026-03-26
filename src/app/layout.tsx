@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ClerkProvider} from '@clerk/nextjs'
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,7 +30,10 @@ export default function RootLayout({
         lang="en"
         className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
       >
-        <body className="min-h-full flex flex-col">{children}</body>
+        <body className="min-h-full flex flex-col">
+          {children}
+          <Toaster position="top-center" />  {/**component에서 toast 메소드를 호출하면 이 컴포넌트가 보일 것임 */}
+        </body>
       </html>
     </ClerkProvider>
   );
