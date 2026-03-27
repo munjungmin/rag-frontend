@@ -167,11 +167,45 @@ function ProjectPage({params}: ProjectPageProps) {
     // Project-settings methods
     
     const handleDraftSettings = (updates: any) => {         // 변경사항을 로컬에만 저장 
-        console.log("Update local state with draft settings");
+        setData((prev) => {
+            // If no settings exist yet, we can't update them
+
+            if(!prev.settings) {
+                console.warn("Cannot update settings: not loaded yet")
+                return prev
+            }
+
+            // Merge the updates into existing settings 
+            return {
+                ...prev,
+                settings: {
+                    ...prev.settings,
+                    ...updates
+                }
+            }
+        })
     };
 
     const handlePublishSettings = async () => {          // 서버에 실제 저장 : 설정 변경마다 API 호출하는 것은 비효율적 
-        console.log("Make API call to publish settings");
+        if(!userId || !data.settings){
+            toast.error("Cannot save settings")
+        }
+        
+        try{
+            const token = await getToken();
+            
+            const result = await apiClient.put(`/api/projects/${projectId}/settings`, data.settings, token);
+
+            setData((prev) => ({
+                ...prev,
+                settings: result.data
+            }))
+
+            toast.success("Settings saved successfully!");
+
+        } catch(err) {
+            toast.error("Failed to update settings");
+        }
     }; 
 
     const selectedDocument = selectedDocumentId 
