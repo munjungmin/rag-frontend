@@ -199,7 +199,30 @@ function ProjectPage({params}: ProjectPageProps) {
     };
 
     const handleUrlAdd = async (url: string) => {
-        console.log("Add URL", url);
+        if(!userId) return;
+
+        try{
+            const token = await getToken();
+            const result = await apiClient.post(`/api/projects/${projectId}/urls`, {
+                url
+            },token)
+
+            const newDocument = result.data;
+
+            // Update local state
+            setData((prev) => ({
+                ...prev,
+                documents: [newDocument, ...prev.documents]
+            }));
+
+            toast.success("Website added successfully!")
+            console.log(result);
+        } catch(err){
+            toast.error("Failed to add website!");
+        }
+
+
+
     };
 
     const handleOpenDocument = (documentId: string)  => {
