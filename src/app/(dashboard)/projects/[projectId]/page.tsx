@@ -10,6 +10,7 @@ import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { NotFound } from '@/components/ui/NotFound';
 import toast from 'react-hot-toast';
 import { Project, Chat, ProjectDocument, ProjectSettings } from '@/lib/types';
+import { useRouter } from 'next/navigation';
 
 interface ProjectPageProps {
     params: Promise<{
@@ -28,6 +29,7 @@ function ProjectPage({params}: ProjectPageProps) {
 
     const { projectId } = use(params);
     const { getToken, userId } = useAuth();
+    const router = useRouter();
 
     // Data state: 4개의 API를 하나의 loading/error state로 관리 -> 4개가 다 완료되어야 UI를 보여줌 
     const [data, setData] = useState<ProjectData>({
@@ -174,7 +176,7 @@ function ProjectPage({params}: ProjectPageProps) {
     };
 
     const handleChatClick = (chatId: string) => {
-        console.log("Navigate to chat: ", chatId);
+        router.push(`/projects/${projectId}/chats/${chatId}`);
     };
 
     // Document-related methods
