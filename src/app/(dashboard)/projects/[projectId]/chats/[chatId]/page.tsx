@@ -3,7 +3,7 @@
 import { use, useEffect, useState } from "react";
 import { useAuth } from "@clerk/nextjs";
 import { ChatInterface } from "@/components/chat/ChatInterface";
-import { ChatWithMessages } from "@/lib/types";
+import { ChatWithMessages, Message } from "@/lib/types";
 import { apiClient } from "@/lib/api";
 import { MessageFeedbackModal } from "@/components/chat/MessageFeedbackModel";
 import toast from "react-hot-toast";
@@ -43,8 +43,29 @@ export default function ProjectChatPage({ params }: ProjectChatPageProps) {
 
       if (!currentChatData || !userId) {
         setSendMessageError("Chat or user not found");
+        setIsMessageSending(false);
         return;
       }
+
+      // Create optimistic user message to show immediately
+      const optimisticUserMessage: Message = {
+        id: `temp-${Date.now()}`,
+        chat_id: currentChatData.id,
+        content: content,
+        role: "user",
+        clerk_id: userId,
+        created_at: new Date().toISOString(),
+        citations: [],
+      }
+
+      // Add user message to UI immediately
+      setCurrentChatData((prev) => {
+        if (!prev) return prev;
+        return {
+            ...prev,
+            messages: [...prev.messages, optimisticUserMessage],
+        };
+      });
 
       // Send POST request to create message
       const token = await getToken();
@@ -58,15 +79,32 @@ export default function ProjectChatPage({ params }: ProjectChatPageProps) {
       const { userMessage, aiMessage } = response.data;
 
       // Update chat with both messages
-      setCurrentChatData((prev) => ({
-        ...prev!,
-        messages: [...prev!.messages, userMessage, aiMessage],
-      }));
+      setCurrentChatData((prev) => {
+        if (!prev) return prev;
+        return {
+            ...prev,
+            messages: [
+                ...prev.messages.filter(
+                    (msg) => msg.id !== optimisticUserMessage.id
+                ),
+                userMessage,
+                aiMessage,
+            ],
+        };
+      });
 
       toast.success("Message sent");
     } catch (err) {
       setSendMessageError("Failed to send message");
       toast.error("Failed to send message");
+
+      setCurrentChatData((prev) => {
+        if (!prev) return prev;
+        return {
+            ...prev,
+            messages: prev.messages.filter((msg) => !msg.id.startsWith("temp-")),
+        };
+      });
     } finally {
       setIsMessageSending(false);
     }
