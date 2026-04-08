@@ -59,24 +59,24 @@ export function ChatInterface({
   };
 
   return (
-    <div className="h-screen bg-[#0d1117] p-4">
-      <div className="flex flex-col h-full bg-[#1a1a1a] text-white rounded-xl overflow-hidden">
+    <div className="h-screen bg-[#ECEEF6] p-4">
+      <div className="flex flex-col h-full bg-white text-gray-800 rounded-xl overflow-hidden border border-gray-200">
         {/* Header */}
         {projectId && (
-          <div className="border-b border-gray-800 bg-[#1a1a1a] sticky top-0 z-10">
+          <div className="border-b border-gray-200 bg-white sticky top-0 z-10">
             <div className="max-w-4xl mx-auto px-6 py-4">
               <div className="flex items-center gap-3">
                 {/* Chat Icon */}
-                <div className="w-7 h-7 bg-[#252525] border border-gray-700 rounded-lg flex items-center justify-center">
-                  <MessageSquare size={14} className="text-gray-400" />
+                <div className="w-7 h-7 bg-gray-50 border border-gray-200 rounded-lg flex items-center justify-center">
+                  <MessageSquare size={14} className="text-gray-500" />
                 </div>
 
                 {/* Chat Info */}
                 <div className="flex-1 min-w-0">
-                  <h1 className="font-medium text-gray-200 text-sm truncate">
+                  <h1 className="font-medium text-gray-800 text-sm truncate">
                     {chat?.title || "New Chat"}
                   </h1>
-                  <p className="text-xs text-gray-400">Project Chat</p>
+                  <p className="text-xs text-gray-500">Project Chat</p>
                 </div>
               </div>
             </div>
@@ -107,15 +107,15 @@ export function ChatInterface({
           <div className="flex-1 flex items-center justify-center">
             <div className="text-center max-w-md mx-auto px-6">
               {/* Hero Icon */}
-              <div className="w-16 h-16 bg-[#252525] border border-gray-700 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <div className="w-16 h-16 bg-gray-50 border border-gray-200 rounded-2xl flex items-center justify-center mx-auto mb-6">
                 <MessageSquare size={24} className="text-gray-400" />
               </div>
 
               {/* Title & Description */}
-              <h2 className="text-xl font-medium text-gray-200 mb-3">
+              <h2 className="text-xl font-medium text-gray-800 mb-3">
                 Ready to start?
               </h2>
-              <p className="text-gray-400 mb-8 leading-relaxed">
+              <p className="text-gray-500 mb-8 leading-relaxed">
                 I can help you analyze your documents, answer questions, and
                 provide insights based on your project's knowledge base.
               </p>
@@ -130,7 +130,7 @@ export function ChatInterface({
                 ].map((feature, index) => (
                   <div
                     key={index}
-                    className="flex items-center gap-3 text-sm text-gray-300 bg-[#202020] rounded-lg p-3 border border-gray-800"
+                    className="flex items-center gap-3 text-sm text-gray-600 bg-gray-50 rounded-lg p-3 border border-gray-200"
                   >
                     <span className="w-1.5 h-1.5 bg-gray-400 rounded-full flex-shrink-0"></span>
                     <span>{feature}</span>
@@ -143,11 +143,11 @@ export function ChatInterface({
                 <button
                   onClick={onCreateNewChat}
                   disabled={isLoading}
-                  className="inline-flex items-center gap-3 bg-white hover:bg-gray-100 disabled:bg-gray-600 disabled:text-gray-400 text-black px-6 py-3 rounded-lg font-medium transition-colors"
+                  className="inline-flex items-center gap-3 bg-[#4F63D2] hover:bg-[#3d4fb8] disabled:bg-gray-200 disabled:text-gray-400 text-white px-6 py-3 rounded-lg font-medium transition-colors"
                 >
                   {isLoading ? (
                     <>
-                      <div className="w-4 h-4 border-2 border-gray-400 border-t-gray-600 rounded-full animate-spin"></div>
+                      <div className="w-4 h-4 border-2 border-gray-300 border-t-gray-500 rounded-full animate-spin"></div>
                       Creating...
                     </>
                   ) : (
@@ -160,7 +160,7 @@ export function ChatInterface({
               )}
 
               {/* Helper Text */}
-              <p className="text-xs text-gray-500 mt-6">
+              <p className="text-xs text-gray-400 mt-6">
                 You can upload documents in the Sources panel to get started
               </p>
             </div>

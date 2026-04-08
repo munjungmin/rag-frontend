@@ -43,17 +43,17 @@ export function MessageList({
   }, [messages, streamingMessage]);
 
   return (
-    <div className="flex-1 overflow-y-auto bg-[#1a1a1a]">
+    <div className="flex-1 overflow-y-auto bg-white">
       {messages.length === 0 && !isStreaming && !isLoading ? (
         <div className="flex items-center justify-center h-full">
-          <div className="text-center text-gray-400 max-w-md mx-auto px-6">
-            <div className="w-12 h-12 bg-[#252525] border border-gray-700 rounded-lg mx-auto mb-6 flex items-center justify-center">
+          <div className="text-center text-gray-500 max-w-md mx-auto px-6">
+            <div className="w-12 h-12 bg-gray-50 border border-gray-200 rounded-lg mx-auto mb-6 flex items-center justify-center">
               <FileText size={18} className="text-gray-400" />
             </div>
-            <h3 className="text-lg font-medium text-gray-200 mb-3">
+            <h3 className="text-lg font-medium text-gray-800 mb-3">
               Start a conversation
             </h3>
-            <p className="text-gray-400 leading-relaxed">
+            <p className="text-gray-500 leading-relaxed">
               Ask me anything about your documents and I'll help you find the
               answers.
             </p>
@@ -71,12 +71,12 @@ export function MessageList({
                   message.citations &&
                   message.citations.length > 0 && (
                     <div className="mt-6 ml-0">
-                      <div className="bg-[#202020] border border-gray-800 rounded-lg p-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
                         <div className="flex items-center gap-3 mb-4">
-                          <div className="w-5 h-5 bg-[#252525] border border-gray-700 rounded-md flex items-center justify-center">
+                          <div className="w-5 h-5 bg-white border border-gray-200 rounded-md flex items-center justify-center">
                             <FileText size={12} className="text-gray-400" />
                           </div>
-                          <span className="text-sm font-medium text-gray-300">
+                          <span className="text-sm font-medium text-gray-600">
                             Sources ({message.citations.length})
                           </span>
                         </div>
@@ -85,16 +85,16 @@ export function MessageList({
                           {message.citations.map((citation, citationIndex) => (
                             <div
                               key={citationIndex}
-                              className="flex items-center gap-3 bg-[#252525] hover:bg-[#2a2a2a] rounded-lg px-3 py-2 border border-gray-700 hover:border-gray-600 transition-colors"
+                              className="flex items-center gap-3 bg-white hover:bg-gray-50 rounded-lg px-3 py-2 border border-gray-200 hover:border-gray-300 transition-colors"
                             >
                               {/* Document Icon */}
-                              <div className="flex-shrink-0 w-7 h-7 bg-[#2a2a2a] border border-gray-600 rounded-md flex items-center justify-center">
+                              <div className="flex-shrink-0 w-7 h-7 bg-gray-50 border border-gray-200 rounded-md flex items-center justify-center">
                                 <FileText size={12} className="text-gray-400" />
                               </div>
 
                               {/* Citation Info */}
                               <div className="flex-1 min-w-0">
-                                <p className="text-sm font-medium text-gray-200 truncate">
+                                <p className="text-sm font-medium text-gray-700 truncate">
                                   {citation.filename}
                                 </p>
                                 <p className="text-xs text-gray-400 mt-0.5">
@@ -104,8 +104,8 @@ export function MessageList({
 
                               {/* Page Number Badge */}
                               <div className="flex-shrink-0">
-                                <div className="w-6 h-6 bg-[#2a2a2a] border border-gray-600 rounded-md flex items-center justify-center">
-                                  <span className="text-xs font-medium text-gray-400">
+                                <div className="w-6 h-6 bg-gray-50 border border-gray-200 rounded-md flex items-center justify-center">
+                                  <span className="text-xs font-medium text-gray-500">
                                     {citation.page}
                                   </span>
                                 </div>
@@ -123,13 +123,13 @@ export function MessageList({
             {isStreaming && streamingMessage && (
               <div className="group">
                 <div className="flex justify-start">
-                  <div className="bg-[#202020] border border-gray-800 rounded-lg p-4 max-w-[85%]">
-                    <p className="whitespace-pre-wrap text-gray-200 leading-relaxed text-sm">
+                  <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 max-w-[85%]">
+                    <p className="whitespace-pre-wrap text-gray-700 leading-relaxed text-sm">
                       {streamingMessage}
                     </p>
 
                     {/* Typing Indicator */}
-                    <div className="flex items-center gap-2 mt-4 pt-3 border-t border-gray-800">
+                    <div className="flex items-center gap-2 mt-4 pt-3 border-t border-gray-200">
                       <div className="flex items-center gap-1">
                         <div className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce"></div>
                         <div
@@ -150,13 +150,13 @@ export function MessageList({
               </div>
             )}
 
-            {/* Loading State - with dynamic status */}
+            {/* Loading State */}
             {isLoading && !isStreaming && (
               <div className="flex justify-start">
-                <div className="bg-[#202020] border border-gray-800 rounded-lg p-4">
+                <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
                   <div className="flex items-center gap-3">
                     <Loader2 size={16} className="text-gray-400 animate-spin" />
-                    <span className="text-sm text-gray-300">
+                    <span className="text-sm text-gray-600">
                       {agentStatus || "Thinking..."}
                     </span>
                   </div>

@@ -32,7 +32,7 @@ export function MessageItem({ message, onFeedback }: MessageItemProps) {
         <div className="flex items-start gap-3">
           {/* Avatar - Only show for assistant */}
           {!isUser && (
-            <div className="flex-shrink-0 w-7 h-7 bg-[#252525] border border-gray-700 rounded-lg flex items-center justify-center mt-1">
+            <div className="flex-shrink-0 w-7 h-7 bg-gray-50 border border-gray-200 rounded-lg flex items-center justify-center mt-1">
               <Bot size={14} className="text-gray-400" />
             </div>
           )}
@@ -41,8 +41,8 @@ export function MessageItem({ message, onFeedback }: MessageItemProps) {
           <div
             className={`rounded-lg p-4 border transition-colors ${
               isUser
-                ? "bg-white text-gray-900 border-gray-300"
-                : "bg-[#202020] text-gray-200 border-gray-800 hover:border-gray-700"
+                ? "bg-[#4F63D2] text-white border-[#4F63D2]"
+                : "bg-gray-50 text-gray-700 border-gray-200 hover:border-gray-300"
             }`}
           >
             <p className="whitespace-pre-wrap leading-relaxed text-sm">
@@ -52,7 +52,7 @@ export function MessageItem({ message, onFeedback }: MessageItemProps) {
 
           {/* User Avatar - Only show for user */}
           {isUser && (
-            <div className="flex-shrink-0 w-7 h-7 bg-[#252525] border border-gray-700 rounded-lg flex items-center justify-center mt-1">
+            <div className="flex-shrink-0 w-7 h-7 bg-gray-50 border border-gray-200 rounded-lg flex items-center justify-center mt-1">
               <User size={14} className="text-gray-400" />
             </div>
           )}
@@ -60,25 +60,25 @@ export function MessageItem({ message, onFeedback }: MessageItemProps) {
 
         {/* Feedback Buttons - Only show for assistant messages */}
         {!isUser && (
-          <div className="absolute -bottom-2 right-10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1 bg-[#252525] border border-gray-700 rounded-lg p-1">
+          <div className="absolute -bottom-2 right-10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1 bg-white border border-gray-200 rounded-lg p-1 shadow-sm">
             <button
               onClick={() => onFeedback?.(message.id, "like")}
-              className="p-1.5 hover:bg-[#2a2a2a] rounded-md transition-colors group/btn"
+              className="p-1.5 hover:bg-gray-100 rounded-md transition-colors group/btn"
               title="Like this response"
             >
               <ThumbsUp
                 size={12}
-                className="text-gray-400 group-hover/btn:text-gray-300 transition-colors"
+                className="text-gray-400 group-hover/btn:text-gray-600 transition-colors"
               />
             </button>
             <button
               onClick={() => onFeedback?.(message.id, "dislike")}
-              className="p-1.5 hover:bg-[#2a2a2a] rounded-md transition-colors group/btn"
+              className="p-1.5 hover:bg-gray-100 rounded-md transition-colors group/btn"
               title="Dislike this response"
             >
               <ThumbsDown
                 size={12}
-                className="text-gray-400 group-hover/btn:text-gray-300 transition-colors"
+                className="text-gray-400 group-hover/btn:text-gray-600 transition-colors"
               />
             </button>
           </div>
@@ -90,11 +90,11 @@ export function MessageItem({ message, onFeedback }: MessageItemProps) {
             isUser ? "justify-end" : "justify-start ml-10"
           }`}
         >
-          <span className="text-xs text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity">
+          <span className="text-xs text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity">
             {time}
           </span>
           {!isUser && (
-            <div className="w-1 h-1 bg-gray-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <div className="w-1 h-1 bg-gray-300 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
           )}
         </div>
       </div>
